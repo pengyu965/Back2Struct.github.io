@@ -196,21 +196,51 @@
 
     <!-- Table 2: StructHub, render-gated -->
     <div class="tablewrap">
-      <table class="res">
-        <caption>Overall results on StructHub (Table 2, render-gated: a non-rendering prediction scores 0 on DINO/SSIM/GPT and 1 on LPIPS). SR is render success (%); GPT is the 0–100 GPTScore. <b>Best</b> and <u>second-best</u> highlighted.</caption>
+      <table class="res t2">
+        <caption>Image-level and text-level evaluation on StructHub across difficulty tiers (Table 2, render-gated: a non-rendering prediction scores 0 on DINO/SSIM/GPT and 1 on LPIPS). SR is render success (%); GPTScore Overall is 0–100, each sub-axis 0–5. <b>Best</b> and <u>second-best</u> per column; our model is shaded.</caption>
         <thead>
-          <tr><th>Model</th><th>SR&nbsp;&uarr;</th><th>DINO&nbsp;&uarr;</th><th>LPIPS&nbsp;&darr;</th><th>SSIM&nbsp;&uarr;</th><th>GPT&nbsp;&uarr;</th></tr>
+          <tr>
+            <th rowspan="2">Model</th>
+            <th colspan="4">Image-level</th>
+            <th colspan="4" class="gsep">Text-level (GPTScore)</th>
+          </tr>
+          <tr>
+            <th>SR&nbsp;&uarr;</th><th>DINO&nbsp;&uarr;</th><th>LPIPS&nbsp;&darr;</th><th>SSIM&nbsp;&uarr;</th>
+            <th class="gsep">Overall&nbsp;&uarr;</th><th>Struct&nbsp;&uarr;</th><th>Flow&nbsp;&uarr;</th><th>Style&nbsp;&uarr;</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Qwen3-VL-30B-A3B</td><td>18.8</td><td>0.1566</td><td>0.9067</td><td>0.1201</td><td>13.29</td></tr>
-          <tr><td>StarVector-8B</td><td>31.4</td><td>0.2694</td><td>0.7936</td><td>0.2170</td><td>21.05</td></tr>
-          <tr><td>Qwen2.5-VL-7B</td><td><u>52.3</u></td><td>0.3527</td><td>0.7834</td><td><u>0.3276</u></td><td>27.56</td></tr>
-          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>42.8</td><td><u>0.3715</u></td><td><u>0.7403</u></td><td>0.2891</td><td><u>33.49</u></td></tr>
-          <tr class="ours"><td>Back2Struct (RL)</td><td><b>71.5</b></td><td><b>0.5622</b></td><td><b>0.6473</b></td><td><b>0.4966</b></td><td><b>51.85</b></td></tr>
+          <tr class="group"><th colspan="9"><em>Overall</em></th></tr>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>18.8</td><td>0.1566</td><td>0.9067</td><td>0.1201</td><td>13.29</td><td>0.78</td><td>0.68</td><td>0.53</td></tr>
+          <tr><td>StarVector-8B</td><td>31.4</td><td>0.2694</td><td>0.7936</td><td>0.2170</td><td>21.05</td><td>1.04</td><td>1.09</td><td>1.03</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td><u>52.3</u></td><td>0.3527</td><td>0.7834</td><td><u>0.3276</u></td><td>27.56</td><td>1.65</td><td>1.32</td><td>1.16</td></tr>
+          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>42.8</td><td><u>0.3715</u></td><td><u>0.7403</u></td><td>0.2891</td><td><u>33.49</u></td><td><u>1.80</u></td><td><u>1.65</u></td><td><u>1.57</u></td></tr>
+          <tr class="ours"><td>Back2Struct (RL)</td><td><b>71.5</b></td><td><b>0.5622</b></td><td><b>0.6473</b></td><td><b>0.4966</b></td><td><b>51.85</b></td><td><b>2.87</b></td><td><b>2.60</b></td><td><b>2.31</b></td></tr>
+
+          <tr class="group"><th colspan="9"><em>Easy</em></th></tr>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>26.5</td><td>0.2231</td><td>0.8659</td><td>0.1702</td><td>19.51</td><td>1.15</td><td>1.00</td><td>0.78</td></tr>
+          <tr><td>StarVector-8B</td><td>46.1</td><td>0.3923</td><td>0.7023</td><td>0.3123</td><td>31.90</td><td>1.61</td><td>1.74</td><td>1.44</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td><u>69.3</u></td><td>0.4776</td><td>0.7123</td><td><u>0.4196</u></td><td>39.66</td><td>2.29</td><td>2.04</td><td>1.61</td></tr>
+          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>56.0</td><td><u>0.4866</u></td><td><u>0.6630</u></td><td>0.3789</td><td><u>44.58</u></td><td><u>2.39</u></td><td><u>2.30</u></td><td><u>1.99</u></td></tr>
+          <tr class="ours"><td>Back2Struct (RL)</td><td><b>84.0</b></td><td><b>0.6384</b></td><td><b>0.5956</b></td><td><b>0.5796</b></td><td><b>62.63</b></td><td><b>3.44</b></td><td><b>3.25</b></td><td><b>2.70</b></td></tr>
+
+          <tr class="group"><th colspan="9"><em>Medium</em></th></tr>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>19.6</td><td>0.1631</td><td>0.9004</td><td>0.1288</td><td>13.38</td><td>0.78</td><td>0.68</td><td>0.54</td></tr>
+          <tr><td>StarVector-8B</td><td>37.0</td><td>0.3232</td><td>0.7533</td><td>0.2583</td><td>25.27</td><td>1.23</td><td>1.25</td><td>1.31</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td><u>51.8</u></td><td>0.3546</td><td>0.7816</td><td><u>0.3306</u></td><td>26.88</td><td>1.62</td><td>1.25</td><td>1.16</td></tr>
+          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>45.5</td><td><u>0.3985</u></td><td><u>0.7161</u></td><td>0.3091</td><td><u>36.50</u></td><td><u>1.98</u></td><td><u>1.76</u></td><td><u>1.74</u></td></tr>
+          <tr class="ours"><td>Back2Struct (RL)</td><td><b>75.6</b></td><td><b>0.6088</b></td><td><b>0.6182</b></td><td><b>0.5275</b></td><td><b>55.14</b></td><td><b>3.08</b></td><td><b>2.72</b></td><td><b>2.47</b></td></tr>
+
+          <tr class="group"><th colspan="9"><em>Hard</em></th></tr>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>10.2</td><td>0.0836</td><td>0.9536</td><td>0.0614</td><td>7.01</td><td>0.41</td><td>0.36</td><td>0.28</td></tr>
+          <tr><td>StarVector-8B</td><td>11.1</td><td>0.0932</td><td>0.9249</td><td>0.0808</td><td>6.02</td><td>0.28</td><td>0.28</td><td>0.34</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td><u>35.7</u></td><td>0.2263</td><td>0.8561</td><td><u>0.2331</u></td><td>16.17</td><td>1.03</td><td>0.67</td><td>0.72</td></tr>
+          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>27.0</td><td><u>0.2297</u></td><td><u>0.8413</u></td><td>0.1795</td><td><u>19.43</u></td><td><u>1.04</u></td><td><u>0.89</u></td><td><u>0.98</u></td></tr>
+          <tr class="ours"><td>Back2Struct (RL)</td><td><b>55.0</b></td><td><b>0.4399</b></td><td><b>0.7278</b></td><td><b>0.3830</b></td><td><b>37.83</b></td><td><b>2.09</b></td><td><b>1.83</b></td><td><b>1.76</b></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="tblnote">Back2Struct lifts render success from 52.3% (base) to 71.5% and improves every image and text metric.</p>
+    <p class="tblnote">Back2Struct is the strongest open / trained model on every tier and metric — render success 52.3%→71.5% overall — with its largest margins on the Hard tier.</p>
 
     <!-- Table 3: compiled-only -->
     <div class="tablewrap" style="margin-top:30px;">

@@ -137,6 +137,8 @@ table.res th, table.res td { padding: 8px 10px; text-align: center; border-botto
 table.res thead th { border-bottom: 2px solid #cfd8e6; font-weight: 700; color: var(--fg); }
 table.res td:first-child, table.res th:first-child { text-align: left; }
 table.res tbody tr.ours { background: var(--accent); font-weight: 600; }
+table.res.t2 tbody td:nth-child(6) { border-left: 1px solid #cfd8e6; }
+table.res.t2 thead th.gsep { border-left: 1px solid #cfd8e6; }
 table.res .group th { background: var(--bg-soft); font-weight: 700; color: var(--fg); font-style: italic; }
 table.res b { color: var(--brand-dk); }
 table.res u { text-decoration-color: var(--muted); }
