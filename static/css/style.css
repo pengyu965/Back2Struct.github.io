@@ -1,0 +1,165 @@
+/* ============================================================
+   Back2Struct — project page styles
+   Self-contained; only external dependency is Google Fonts.
+   ============================================================ */
+
+:root {
+  --bg:        #ffffff;
+  --bg-soft:   #f6f8fb;
+  --bg-card:   #ffffff;
+  --fg:        #1a2233;
+  --fg-soft:   #4a5568;
+  --muted:     #7a869a;
+  --border:    #e4e9f0;
+  --brand:     #2b6cb0;      /* Back2Struct blue */
+  --brand-dk:  #21528a;
+  --accent:    #e2e9f6;      /* methodbg */
+  --good:      #2f9e5a;
+  --radius:    14px;
+  --maxw:      1040px;
+  --shadow:    0 1px 3px rgba(20,30,60,.06), 0 8px 24px rgba(20,30,60,.06);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-dk); text-decoration: underline; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(180deg, var(--bg-soft) 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 0 40px;
+  text-align: center;
+}
+.venue {
+  display: inline-block;
+  font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--brand); background: var(--accent);
+  padding: 5px 14px; border-radius: 999px; margin-bottom: 20px;
+}
+.title {
+  font-size: clamp(28px, 4.6vw, 46px);
+  font-weight: 800; line-height: 1.12; letter-spacing: -0.01em;
+  margin: 0 auto 6px; max-width: 900px; color: var(--fg);
+}
+.subtitle { font-size: clamp(16px, 2.2vw, 20px); color: var(--fg-soft); margin: 0 auto 26px; max-width: 720px; }
+
+.authors { font-size: 19px; margin: 18px auto 4px; max-width: 820px; line-height: 2; }
+.authors a { color: var(--fg); font-weight: 600; }
+.authors .sup { color: var(--brand); font-size: .8em; vertical-align: super; }
+.affil { color: var(--fg-soft); font-size: 16px; margin: 2px 0 4px; }
+.affil .email { color: var(--muted); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ---------- Buttons ---------- */
+.btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 28px 0 4px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--fg); color: #fff;
+  padding: 11px 20px; border-radius: 999px;
+  font-weight: 600; font-size: 15px; border: 1px solid var(--fg);
+  transition: transform .08s ease, background .15s ease;
+}
+.btn:hover { text-decoration: none; color: #fff; transform: translateY(-1px); background: #000; }
+.btn .ic { width: 17px; height: 17px; fill: currentColor; }
+.btn.secondary { background: #fff; color: var(--fg); border-color: var(--border); }
+.btn.secondary:hover { background: var(--bg-soft); color: var(--fg); }
+.btn.brand { background: var(--brand); border-color: var(--brand); }
+.btn.brand:hover { background: var(--brand-dk); }
+
+/* ---------- Sections ---------- */
+section { padding: 46px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: 0; }
+.h2 {
+  font-size: 27px; font-weight: 800; letter-spacing: -0.01em;
+  text-align: center; margin: 0 0 8px;
+}
+.lead { text-align: center; color: var(--fg-soft); max-width: 760px; margin: 0 auto 30px; }
+p.body { color: var(--fg-soft); }
+p.body strong { color: var(--fg); }
+
+/* ---------- Figures ---------- */
+figure { margin: 0 auto; text-align: center; }
+figure img {
+  margin: 0 auto; border-radius: 10px; border: 1px solid var(--border);
+  box-shadow: var(--shadow); background: #fff;
+}
+figcaption { color: var(--muted); font-size: 14.5px; margin-top: 12px; max-width: 860px; margin-inline: auto; text-align: left; }
+figcaption b { color: var(--fg-soft); }
+.fig-missing {
+  display: none; margin: 0 auto; max-width: 620px;
+  border: 1px dashed var(--border); border-radius: 10px; background: var(--bg-soft);
+  color: var(--muted); font-size: 14px; padding: 28px 20px; text-align: center;
+}
+img.hasfallback { }
+img.hasfallback.broken { display: none; }
+
+/* ---------- Highlight cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 22px 20px; box-shadow: var(--shadow);
+}
+.card .num { font-size: 30px; font-weight: 800; color: var(--brand); line-height: 1.1; }
+.card h3 { margin: 6px 0 6px; font-size: 17px; }
+.card p { margin: 0; color: var(--fg-soft); font-size: 15px; }
+
+.stat-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 6px 0 30px; }
+.stat {
+  background: var(--accent); border-radius: var(--radius); padding: 16px 22px; text-align: center; min-width: 150px;
+}
+.stat .big { font-size: 26px; font-weight: 800; color: var(--brand-dk); }
+.stat .lbl { font-size: 13.5px; color: var(--fg-soft); }
+
+/* ---------- Tables ---------- */
+.tablewrap { overflow-x: auto; margin: 10px 0 6px; }
+table.res {
+  border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 640px;
+  background: #fff;
+}
+table.res caption { caption-side: top; text-align: left; color: var(--muted); font-size: 13.5px; margin-bottom: 8px; }
+table.res th, table.res td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--border); }
+table.res thead th { border-bottom: 2px solid #cfd8e6; font-weight: 700; color: var(--fg); }
+table.res td:first-child, table.res th:first-child { text-align: left; }
+table.res tbody tr.ours { background: var(--accent); font-weight: 600; }
+table.res .group th { background: var(--bg-soft); font-weight: 700; color: var(--fg); font-style: italic; }
+table.res b { color: var(--brand-dk); }
+table.res u { text-decoration-color: var(--muted); }
+.tblnote { color: var(--muted); font-size: 13px; margin: 4px 2px 0; }
+
+/* ---------- BibTeX ---------- */
+pre.bib {
+  background: #0f1626; color: #d7e0f0; border-radius: var(--radius);
+  padding: 20px 22px; overflow-x: auto; font-size: 13.5px; line-height: 1.6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.copybar { display: flex; justify-content: flex-end; margin-bottom: -6px; }
+.copybtn {
+  font-size: 13px; border: 1px solid var(--border); background: #fff; color: var(--fg-soft);
+  padding: 6px 12px; border-radius: 8px; cursor: pointer;
+}
+.copybtn:hover { background: var(--bg-soft); }
+
+/* ---------- Footer ---------- */
+footer { padding: 34px 0 56px; text-align: center; color: var(--muted); font-size: 14px; }
+footer a { color: var(--fg-soft); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+  .cards { grid-template-columns: 1fr; }
+  body { font-size: 16px; }
+  section { padding: 36px 0; }
+}

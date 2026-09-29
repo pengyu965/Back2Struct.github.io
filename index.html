@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Back2Struct: Making Structured Images Editable Again</title>
+<meta name="description" content="Back2Struct recovers editable, object-level SVG/XML code from images of structured graphics (diagrams, charts, flowcharts), via SFT and GRPO reward optimization.">
+<meta property="og:title" content="Back2Struct: Making Structured Images Editable Again">
+<meta property="og:description" content="A 7B model that recovers editable SVG/XML from structured images and rivals GPT-5 & Gemini-2.5-Pro on compiled outputs.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="static/images/comparison.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="venue">Preprint &middot; 2026</div>
+    <h1 class="title">Back2Struct: Making Structured Images Editable Again</h1>
+    <p class="subtitle">Recovering editable, object-level SVG/XML code from images of structured graphics.</p>
+
+    <div class="authors">
+      Pengyu Yan<span class="sup">1</span> &nbsp;&nbsp;
+      Yixin Wu<span class="sup">1</span> &nbsp;&nbsp;
+      Yunjie Tian<span class="sup">1</span> &nbsp;&nbsp;
+      David Doermann<span class="sup">1</span>
+    </div>
+    <div class="affil"><span class="sup">1</span> University at Buffalo, SUNY</div>
+    <div class="affil"><span class="email">{pyan4, yixinwu, yunjieti, doermann}@buffalo.edu</span></div>
+
+    <nav class="btns">
+      <a class="btn" href="static/Back2Struct.pdf">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h5v1.5H8V10z"/></svg>
+        Paper
+      </a>
+      <!-- arXiv: enable once posted
+      <a class="btn secondary" href="https://arxiv.org/abs/XXXX.XXXXX">arXiv</a> -->
+      <a class="btn secondary" href="https://github.com/pengyu965/Back2Struct.github.io">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.575.106.785-.25.785-.556 0-.274-.01-1-.015-1.965-3.196.695-3.87-1.54-3.87-1.54-.523-1.33-1.277-1.684-1.277-1.684-1.044-.714.08-.7.08-.7 1.155.082 1.763 1.186 1.763 1.186 1.026 1.758 2.693 1.25 3.35.955.104-.744.402-1.25.73-1.538-2.552-.29-5.236-1.276-5.236-5.68 0-1.255.448-2.28 1.183-3.084-.119-.29-.513-1.46.112-3.043 0 0 .965-.309 3.163 1.178a10.98 10.98 0 0 1 2.88-.388c.977.004 1.96.132 2.88.388 2.196-1.487 3.16-1.178 3.16-1.178.626 1.583.232 2.753.114 3.043.737.804 1.18 1.83 1.18 3.084 0 4.415-2.688 5.386-5.25 5.67.414.357.782 1.06.782 2.137 0 1.543-.014 2.787-.014 3.166 0 .309.207.668.79.555A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+        Code
+      </a>
+      <!-- HuggingFace: enable once repos are live
+      <a class="btn brand" href="#">Model</a>
+      <a class="btn brand" href="#">Dataset</a> -->
+      <a class="btn secondary" href="#bibtex">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2zm0 5h10v2H4v-2z"/></svg>
+        BibTeX
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================ TEASER (Fig 1) ============================ -->
+<section>
+  <div class="wrap">
+    <figure>
+      <img class="hasfallback" src="static/images/comparison.png" alt="Qualitative comparison of image-to-SVG recovery across GPT-5, Qwen3-Max, Gemini-2.5-Pro, and Back2Struct">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>comparison.png</code>.</div>
+      <figcaption><b>Recovering the reference image (Fig. 1).</b> A qualitative comparison across the most advanced LLMs — GPT-5 (Thinking), Qwen3-Max (&gt;1T params), Gemini-2.5-Pro — and <b>Back2Struct (ours)</b>. With only <b>7B parameters</b>, Back2Struct reconstructs structured graphics with negligible confusion or mistakes.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ ABSTRACT ============================ -->
+<section id="abstract">
+  <div class="wrap" style="max-width:820px;">
+    <h2 class="h2">Abstract</h2>
+    <p class="body">
+      Structured images — diagrams, charts, and flowcharts — are inherently symbolic and can be
+      compactly represented in an editable format, yet in practice they are shared as raster images
+      and are no longer graphically editable. We present <strong>Back2Struct</strong>, which
+      "makes structured images editable again" by directly recovering vector graphics code
+      (SVG&nbsp;/&nbsp;XML) from image representations. Given an image of a structured graphic,
+      Back2Struct predicts semantically <strong>object-level</strong> SVG/XML that explicitly encodes
+      text, shapes, topology, and layout — rather than performing low-level pixel vectorization — so
+      the code can be imported straight into tools like PowerPoint to edit, restyle, and reuse content
+      while preserving structural fidelity. Beyond supervised fine-tuning on ground-truth SVG token
+      sequences, we further optimize Back2Struct with <strong>reward-based learning</strong> using a
+      composite reward that jointly encourages SVG/XML compilability, length consistency with the
+      reference code, and structural/semantic similarity to the input. Experiments show Back2Struct
+      improves accuracy, editability, validity, and user alignment over strong baselines.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ HIGHLIGHTS ============================ -->
+<section id="highlights">
+  <div class="wrap">
+    <h2 class="h2">Highlights</h2>
+    <p class="lead">Three contributions toward editable structured-image generation.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">84K</div>
+        <h3>StructHub dataset</h3>
+        <p>84,121 paired structured raster images and their SVG/XML code, plus a 1,000-sample evaluation benchmark — a large-scale, high-value corpus for editable structured-image generation.</p>
+      </div>
+      <div class="card">
+        <div class="num">SVG/XML</div>
+        <h3>Object-level recovery</h3>
+        <p>A framework that recovers semantically meaningful, object-level vector code — explicitly modeling text, shapes, topology, and layout, not pixels.</p>
+      </div>
+      <div class="card">
+        <div class="num">RL</div>
+        <h3>Reward-based optimization</h3>
+        <p>A composite reward (syntactic validity, length fidelity, and perceptual quality) optimized with GRPO improves deployment-time validity and faithfulness.</p>
+      </div>
+    </div>
+
+    <div class="stat-row" style="margin-top:34px;">
+      <div class="stat"><div class="big">7B</div><div class="lbl">parameters</div></div>
+      <div class="stat"><div class="big">84,121</div><div class="lbl">image–code pairs</div></div>
+      <div class="stat"><div class="big">1,000</div><div class="lbl">benchmark samples</div></div>
+      <div class="stat"><div class="big">&gt; GPT-5</div><div class="lbl">GPT-score on compiled outputs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ METHOD (Fig 2) ============================ -->
+<section id="method">
+  <div class="wrap">
+    <h2 class="h2">Method</h2>
+    <p class="lead">Object-level SVG generation, warm-started by SFT and refined by GRPO.</p>
+    <figure>
+      <img class="hasfallback" src="static/images/framework.png" alt="Back2Struct framework overview">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>framework.png</code>.</div>
+      <figcaption><b>Overview of Back2Struct (Fig. 2).</b> Given an RGB reference image (and/or text), the policy autoregressively generates object-level SVG/XML that losslessly converts into an editable document. Training is SFT warm-start followed by GRPO group-relative optimization.</figcaption>
+    </figure>
+    <div style="max-width:820px;margin:26px auto 0;">
+      <p class="body">
+        We cast structured-image recovery as <strong>object-level vector-code generation</strong>: instead of
+        tracing pixels, the model emits SVG/XML primitives that name the actual shapes, text, connectors, and
+        their arrangement. The policy is first supervised-fine-tuned on ground-truth SVG sequences, then
+        optimized with reinforcement learning (GRPO) using a reward tailored to how the model is deployed.
+      </p>
+      <p class="body">
+        The <strong>composite reward</strong> combines three complementary signals — <em>syntactic validity</em>
+        (the output must compile/render), <em>length fidelity</em> (consistency with the reference code length),
+        and <em>perceptual quality</em> (structural/semantic similarity between the rendered prediction and the
+        target image). Group-relative advantages then steer the policy toward outputs that are simultaneously
+        valid, concise, and visually faithful.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DATASET (Fig 3 & 5, Table 1) ============================ -->
+<section id="dataset">
+  <div class="wrap">
+    <h2 class="h2">StructHub Dataset</h2>
+    <p class="lead">84K paired image–code examples across three sources, with a 1,000-sample held-out benchmark.</p>
+
+    <div class="tablewrap" style="max-width:680px;margin-inline:auto;">
+      <table class="res" style="min-width:520px;">
+        <caption>StructHub statistics (Table 1). Training uses examples with &le;8,192 tokens; the benchmark is held out.</caption>
+        <thead>
+          <tr><th>Subset</th><th>Train (full)</th><th>Train (&le;8,192 tok)</th><th>Benchmark</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>StarDiag-HQ</td><td>52,875</td><td>52,875</td><td>569</td></tr>
+          <tr><td>OpenDiag</td><td>27,953</td><td>18,800</td><td>334</td></tr>
+          <tr><td>NNArch</td><td>3,293</td><td>1,453</td><td>97</td></tr>
+          <tr class="ours"><td>Total</td><td>84,121</td><td>73,128</td><td>1,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tblnote" style="text-align:center;">The benchmark is split by ground-truth SVG length into easy (&le;2,048 tok), medium (2,048–4,096), and hard (&gt;4,096) tiers.</p>
+
+    <figure style="margin-top:26px;">
+      <img class="hasfallback" src="static/images/dataset_overview.png" alt="StructHub dataset statistics">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>dataset_overview.png</code>.</div>
+      <figcaption><b>Dataset statistics (Fig. 3).</b> Token-length distributions, content profiles, and difficulty compositions of StarDiag-HQ, OpenDiag, and NNArch.</figcaption>
+    </figure>
+
+    <figure style="margin-top:30px;">
+      <img class="hasfallback" src="static/images/data_samples.png" alt="Examples from the StructHub dataset">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>data_samples.png</code>.</div>
+      <figcaption><b>Dataset examples (Fig. 5).</b> Each raster image is paired with an editable SVG counterpart, providing high-quality pixel–code supervision.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ RESULTS (Tables 2 & 3, Fig 4) ============================ -->
+<section id="results">
+  <div class="wrap">
+    <h2 class="h2">Results</h2>
+    <p class="lead">On StructHub, Back2Struct is the strongest open/trained model — and on renderable outputs it rivals frontier closed models many times its size.</p>
+
+    <!-- Table 2: StructHub, render-gated -->
+    <div class="tablewrap">
+      <table class="res">
+        <caption>Overall results on StructHub (Table 2, render-gated: a non-rendering prediction scores 0 on DINO/SSIM/GPT and 1 on LPIPS). SR is render success (%); GPT is the 0–100 GPTScore. <b>Best</b> and <u>second-best</u> highlighted.</caption>
+        <thead>
+          <tr><th>Model</th><th>SR&nbsp;&uarr;</th><th>DINO&nbsp;&uarr;</th><th>LPIPS&nbsp;&darr;</th><th>SSIM&nbsp;&uarr;</th><th>GPT&nbsp;&uarr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>18.8</td><td>0.1566</td><td>0.9067</td><td>0.1201</td><td>13.29</td></tr>
+          <tr><td>StarVector-8B</td><td>31.4</td><td>0.2694</td><td>0.7936</td><td>0.2170</td><td>21.05</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td><u>52.3</u></td><td>0.3527</td><td>0.7834</td><td><u>0.3276</u></td><td>27.56</td></tr>
+          <tr><td>Qwen2.5-VL-7B<sub>SFT</sub></td><td>42.8</td><td><u>0.3715</u></td><td><u>0.7403</u></td><td>0.2891</td><td><u>33.49</u></td></tr>
+          <tr class="ours"><td>Back2Struct (RL)</td><td><b>71.5</b></td><td><b>0.5622</b></td><td><b>0.6473</b></td><td><b>0.4966</b></td><td><b>51.85</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tblnote">Back2Struct lifts render success from 52.3% (base) to 71.5% and improves every image and text metric.</p>
+
+    <!-- Table 3: compiled-only -->
+    <div class="tablewrap" style="margin-top:30px;">
+      <table class="res">
+        <caption>Comparison on <b>successfully compiled</b> outputs (Table 3). On renderable SVGs, the 7B Back2Struct matches or beats frontier closed models. <b>Best</b> / <u>second-best</u>.</caption>
+        <thead>
+          <tr><th>Model</th><th>DINO&nbsp;&uarr;</th><th>LPIPS&nbsp;&darr;</th><th>SSIM&nbsp;&uarr;</th><th>GPT&nbsp;&uarr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Qwen2.5-VL-7B</td><td>0.6749</td><td>0.5856</td><td>0.6270</td><td>52.73</td></tr>
+          <tr><td>Qwen3-VL-30B-A3B</td><td>0.8347</td><td>0.5027</td><td>0.6402</td><td>70.88</td></tr>
+          <tr><td>Gemini-2.5-Pro</td><td><b>0.8855</b></td><td>0.4648</td><td>0.6532</td><td><u>77.95</u></td></tr>
+          <tr><td>GPT-5</td><td><u>0.8852</u></td><td><u>0.4350</u></td><td><u>0.6573</u></td><td>77.21</td></tr>
+          <tr class="ours"><td>Back2Struct (7B)</td><td>0.8697</td><td><b>0.3896</b></td><td><b>0.6738</b></td><td><b>78.63</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tblnote">On compiled outputs, Back2Struct achieves the best GPTScore, SSIM, and LPIPS — ahead of GPT-5 and Gemini-2.5-Pro, at a fraction of the size.</p>
+
+    <figure style="margin-top:34px;">
+      <img class="hasfallback" src="static/images/performance.png" alt="Image-level performance comparison across dataset sources">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>performance.png</code>.</div>
+      <figcaption><b>Performance by source (Fig. 4).</b> Image-level performance comparison across the three StructHub sources (StarDiag-HQ, OpenDiag, NNArch).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ QUALITATIVE (Fig 10 & 11) ============================ -->
+<section id="qualitative">
+  <div class="wrap">
+    <h2 class="h2">Qualitative Samples</h2>
+
+    <figure>
+      <img class="hasfallback" src="static/images/qualitative.png" alt="Qualitative results of Back2Struct">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>qualitative.png</code>.</div>
+      <figcaption><b>Image-to-SVG results (Fig. 10).</b> Gray denotes ground-truth SVGs; green indicates Back2Struct predictions across schemas, architecture diagrams, workflows, plots, and hierarchies.</figcaption>
+    </figure>
+
+    <figure style="margin-top:34px;">
+      <img class="hasfallback" src="static/images/text2svg.png" alt="Text-to-SVG comparison">
+      <div class="fig-missing">Figure not generated yet — run <code>bash convert_figs.sh</code> to render <code>text2svg.png</code>.</div>
+      <figcaption><b>Text-to-SVG (Fig. 11).</b> Given the same prompt, the 7B Back2Struct produces diagrams closer to the ground truth than much larger LLMs — the reward-driven fine-tuning transfers from image- to text-conditioned generation.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ BIBTEX ============================ -->
+<section id="bibtex">
+  <div class="wrap" style="max-width:820px;">
+    <h2 class="h2" style="text-align:left;">BibTeX</h2>
+    <div class="copybar"><button class="copybtn" onclick="copyBib()">Copy</button></div>
+    <pre class="bib" id="bibtext">@article{yan2026back2struct,
+  title   = {Back2Struct: Making Structured Images Editable Again},
+  author  = {Yan, Pengyu and Wu, Yixin and Tian, Yunjie and Doermann, David},
+  year    = {2026},
+  note    = {Preprint}
+}</pre>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap">
+    <p>University at Buffalo, SUNY &middot; 2026 &nbsp;|&nbsp; Website source on
+      <a href="https://github.com/pengyu965/Back2Struct.github.io">GitHub</a>.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('img.hasfallback').forEach(function (img) {
+    img.addEventListener('error', function () {
+      img.classList.add('broken');
+      var note = img.nextElementSibling;
+      if (note && note.classList.contains('fig-missing')) note.style.display = 'block';
+    });
+  });
+  function copyBib() {
+    var t = document.getElementById('bibtext').innerText;
+    navigator.clipboard && navigator.clipboard.writeText(t);
+    var b = document.querySelector('.copybtn');
+    if (b) { var o = b.textContent; b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = o; }, 1400); }
+  }
+</script>
+</body>
+</html>
