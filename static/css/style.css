@@ -75,6 +75,8 @@ a:hover { color: var(--brand-dk); text-decoration: underline; }
 }
 .btn:hover { text-decoration: none; color: #fff; transform: translateY(-1px); background: #000; }
 .btn .ic { width: 17px; height: 17px; fill: currentColor; }
+.btn .ic-ai { font-size: 16px; line-height: 1; }
+.btn .hf { font-size: 16px; line-height: 1; }
 .btn.secondary { background: #fff; color: var(--fg); border-color: var(--border); }
 .btn.secondary:hover { background: var(--bg-soft); color: var(--fg); }
 .btn.brand { background: var(--brand); border-color: var(--brand); }
