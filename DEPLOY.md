@@ -51,5 +51,4 @@ Served at `https://pengyu965.github.io/Back2Struct.github.io/`.
 ## Notes
 - All table numbers are hard-coded from the paper (Tables 1–3) and verified against
   `arxiv_back2struct.pdf`. The benchmark is **1,000** samples (569 + 334 + 97).
-- The arXiv / HuggingFace buttons in the hero are commented out — enable and set URLs
-  when available.
+- Hero links (all live): Paper (arXiv 2609.37016), Code, HF Model, HF Dataset, BibTeX.

@@ -1,7 +1,7 @@
 # Back2Struct: Making Structured Images Editable Again
 
 <p align="center">
-  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg"></a>
+  <a href="https://arxiv.org/abs/2609.37016"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2609.37016-b31b1b.svg"></a>
   <a href="https://pengyu965.github.io/Back2Struct.github.io/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-2b6cb0.svg"></a>
   <a href="https://huggingface.co/Pengyu965/Back2Struct-Image2SVG-7B"><img alt="HF Model" src="https://img.shields.io/badge/%F0%9F%A4%97%20Model-Back2Struct--Image2SVG--7B-ffcc4d.svg"></a>
   <a href="https://huggingface.co/datasets/Pengyu965/StructHub"><img alt="HF Dataset" src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-StructHub-ffcc4d.svg"></a>
@@ -12,7 +12,7 @@
   University at Buffalo, SUNY
 </p>
 
-> **Links:** [📄 Paper (arXiv — placeholder, updating soon)](https://arxiv.org/abs/XXXX.XXXXX) ·
+> **Links:** [📄 Paper (arXiv)](https://arxiv.org/abs/2609.37016) ·
 > [🌐 Project Page](https://pengyu965.github.io/Back2Struct.github.io/) ·
 > [🤖 Model](https://huggingface.co/Pengyu965/Back2Struct-Image2SVG-7B) ·
 > [📚 Dataset](https://huggingface.co/datasets/Pengyu965/StructHub)
@@ -131,10 +131,13 @@ This repository also hosts the project website — see [`index.html`](index.html
 ## Citation
 
 ```bibtex
-@article{yan2026back2struct,
-  title   = {Back2Struct: Making Structured Images Editable Again},
-  author  = {Yan, Pengyu and Wu, Yixin and Tian, Yunjie and Doermann, David},
-  year    = {2026},
-  note    = {Preprint}
+@misc{yan2026back2structmakingstructuredimages,
+      title={Back2Struct: Making Structured Images Editable Again},
+      author={Pengyu Yan and Yixin Wu and Yunjie Tian and David Doermann},
+      year={2026},
+      eprint={2609.37016},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2609.37016},
 }
 ```
